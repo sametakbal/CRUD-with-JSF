@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>School</title>
+    </h:head>
+    <h:body>
+        <h:form>
+        <h:commandLink value="Lessons" action="/lesson.xhtml"/>
+        
+            <h:dataTable value="#{studentController.slist}" var="student">
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                        #{student.id}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:commandLink   value="#{student.name}" action="#{studentController.updateForm(student)}"/>
+
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Surname</f:facet>
+                        #{student.surname}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Age</f:facet>
+                        #{student.age}
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <h:form>
+            <h:inputHidden value="#{lessonController.lesson.id}"/>
+            Name:<br/>
+            <h:inputText value="#{studentController.student.name}" /><br/>
+            Surname:<br/>
+            <h:inputText value="#{studentController.student.surname}" /><br/>
+            Age:<br/>
+            <h:inputText value="#{studentController.student.age}" /><br/>
+            <h:commandButton value="Ekle" rendered="#{studentController.student.id ==0}" action="#{studentController.save()}" />
+            <h:commandButton value="Güncelle" rendered="#{studentController.student.id !=0}" action="#{studentController.update()}" />  
+            <h:commandButton value="Sil" rendered="#{studentController.student.id !=0}" action="#{studentController.delete()}" />
+            <h:commandButton value="Temizle" rendered="#{studentController.student.id !=0}" action="#{studentController.clearForm()}" /> 
+
+        </h:form>
+    </h:body>
+</html>
+
